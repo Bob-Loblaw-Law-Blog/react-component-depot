@@ -2,7 +2,7 @@ import React, { Suspense, useEffect } from "react";
 import "components/FontawsomeIcons";
 
 import "./App.css";
-import "./dark.css";
+import "./enhanced-themes.css";
 
 import Layout from "pages/_layouts/Home";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";

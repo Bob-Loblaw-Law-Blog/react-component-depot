@@ -1,0 +1,210 @@
+/* Enhanced Themes CSS */
+
+/* Dark Theme */
+body.theme-dark {
+    background: #1d2127;
+    color: #fff;
+}
+
+body.theme-dark #sidebar {
+    background: #1d2127;
+}
+
+body.theme-dark #sidebar .sidebar-header {
+    background: #12171e;
+}
+
+body.theme-dark #sidebar ul li a {
+    background: #12171e;
+}
+
+body.theme-dark .navbar {
+    background: #dad3d3 !important;
+    box-shadow: 1px 3px 0 1px #2f3139;
+}
+
+body.theme-dark .bg-light {
+    background-color: #12171e !important;
+}
+
+body.theme-dark .table {
+    color: #fff;
+}
+
+body.theme-dark #sidebar ul li a:hover {
+    background: #131820;
+    color: #ff9d9d;
+}
+
+body.theme-dark input {
+    background: #12171e;
+    color: #fff;
+    border: 1px solid #454444;
+}
+
+body.theme-dark .page-link {
+    background: transparent;
+    color: #fff;
+}
+
+body.theme-dark .page-item.disabled .page-link {
+  background-color: transparent;
+}
+
+body.theme-dark .list-group-item {
+    background: #12171e;
+    color: #fff;
+}
+
+body.theme-dark .list-group-item.active,
+body.theme-dark .list-group-item:hover {
+    background: #ababac;
+}
+
+body.theme-dark .card {
+    background: #12171e;
+}
+
+/* Blue Theme */
+body.theme-blue {
+  background-color: #e6f2ff;
+  color: #003366;
+}
+
+body.theme-blue #sidebar {
+  background-color: #0066cc;
+  color: white;
+}
+
+body.theme-blue #sidebar .sidebar-header {
+  background-color: #0044aa;
+  color: white;
+}
+
+body.theme-blue #sidebar ul li a {
+  background-color: transparent;
+  color: white;
+}
+
+body.theme-blue .navbar {
+  background-color: #0099ff !important;
+  color: white;
+}
+
+body.theme-blue .bg-light {
+  background-color: #cce6ff !important;
+}
+
+body.theme-blue .table {
+  color: #003366;
+}
+
+body.theme-blue .card {
+  background-color: #cce6ff;
+  color: #003366;
+}
+
+body.theme-blue input {
+  background-color: #cce6ff;
+  color: #003366;
+  border: 1px solid #99c2ff;
+}
+
+/* Green Theme */
+body.theme-green {
+  background-color: #e6ffe6;
+  color: #003300;
+}
+
+body.theme-green #sidebar {
+  background-color: #006622;
+  color: white;
+}
+
+body.theme-green #sidebar .sidebar-header {
+  background-color: #004411;
+  color: white;
+}
+
+body.theme-green #sidebar ul li a {
+  background-color: transparent;
+  color: white;
+}
+
+body.theme-green .navbar {
+  background-color: #009933 !important;
+  color: white;
+}
+
+body.theme-green .bg-light {
+  background-color: #ccffcc !important;
+}
+
+body.theme-green .table {
+  color: #003300;
+}
+
+body.theme-green .card {
+  background-color: #ccffcc;
+  color: #003300;
+}
+
+body.theme-green input {
+  background-color: #ccffcc;
+  color: #003300;
+  border: 1px solid #66ff66;
+}
+
+/* Purple Theme */
+body.theme-purple {
+  background-color: #f2e6ff;
+  color: #330066;
+}
+
+body.theme-purple #sidebar {
+  background-color: #7700dd;
+  color: white;
+}
+
+body.theme-purple #sidebar .sidebar-header {
+  background-color: #660099;
+  color: white;
+}
+
+body.theme-purple #sidebar ul li a {
+  background-color: transparent;
+  color: white;
+}
+
+body.theme-purple .navbar {
+  background-color: #9933ff !important;
+  color: white;
+}
+
+body.theme-purple .bg-light {
+  background-color: #e6ccff !important;
+}
+
+body.theme-purple .table {
+  color: #330066;
+}
+
+body.theme-purple .card {
+  background-color: #e6ccff;
+  color: #330066;
+}
+
+body.theme-purple input {
+  background-color: #e6ccff;
+  color: #330066;
+  border: 1px solid #cc99ff;
+}
+
+/* Theme dropdown styles */
+.theme-dropdown {
+  background: #fff;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  max-width: 200px;
+}
