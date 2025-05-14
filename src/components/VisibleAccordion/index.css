@@ -1,0 +1,36 @@
+.expanded-accordion .accordion-icon {
+    position: absolute;
+    right: 15px;
+    transition: all 0.3s;
+    transform: rotate(90deg); /* Start expanded by default */
+}
+
+.expanded-accordion .card-body {
+    display: block; /* Show content by default */
+}
+
+.expanded-accordion .accordion-collapsed .card-body {
+    display: none;
+}
+
+.accordion-collapsed .accordion-icon {
+    transform: rotate(0deg);
+}
+
+.expanded-accordion .card-header {
+    cursor: pointer;
+    position: relative;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.expanded-accordion .card {
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.expanded-accordion .card-body {
+    padding: 15px;
+}
