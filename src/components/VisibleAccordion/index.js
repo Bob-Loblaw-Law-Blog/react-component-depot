@@ -2,47 +2,45 @@ import React, { useState } from "react";
 import "./index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ExpandedAccordion = ({ data, multiple = false }) => {
-    // For single selection mode, keep track of which item is collapsed
-    const [collapsed, setCollapsed] = useState(null);
+const VisibleAccordion = ({ data, multiple = false }) => {
+    const [active, setActive] = useState("");  // Start with empty string for no active item
 
     return (
-        <div className="expanded-accordion">
+        <div className="custom-visible-accordion">
             {data.map((tab, idx) => (
-                <ExpandedAccordionItem
+                <VisibleAccordionItem
                     key={idx}
                     {...tab}
-                    collapsed={collapsed === idx}
+                    active={active === idx}
                     multiple={multiple}
-                    onToggle={(e) => setCollapsed((c) => (c === idx ? null : idx))}
+                    onToggle={(e) => setActive((a) => (a === idx ? "" : idx))}
                 />
             ))}
         </div>
     );
 };
 
-const ExpandedAccordionItem = ({ title, content, collapsed, multiple, onToggle }) => {
-    // For multiple selection mode, each item maintains its own state
-    const [isCollapsed, setIsCollapsed] = useState(false);
+const VisibleAccordionItem = ({ title, content, active, multiple, onToggle }) => {
+    const [visibility, setVisibility] = useState(true);  // Start visible by default
 
-    const isItemCollapsed = () => (multiple ? isCollapsed : collapsed);
+    const isActive = () => (multiple ? visibility : active);
 
-    const toggleCollapse = () => {
-        setIsCollapsed((v) => !v);
+    const toggleVisibility = () => {
+        setVisibility((v) => !v);
         onToggle();
     };
 
     return (
-        <div className={`card ${isItemCollapsed() ? "accordion-collapsed" : ""}`}>
-            <div className="card-header" onClick={toggleCollapse}>
+        <div className={`card ${isActive() ? "visible-accordion-active" : ""}`}>
+            <div className="card-header" onClick={toggleVisibility}>
                 {title}
-                <span className="accordion-icon">
+                <span className="visible-accordion-icon">
                     <FontAwesomeIcon icon="chevron-right" />
                 </span>
             </div>
-            <div className="card-body">{content}</div>
+            <div className="card-body" style={{ display: visibility ? "block" : "none" }}>{content}</div>
         </div>
     );
 };
 
-export default ExpandedAccordion;
+export default VisibleAccordion;

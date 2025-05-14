@@ -1,36 +1,16 @@
-.expanded-accordion .accordion-icon {
+.custom-visible-accordion .visible-accordion-icon {
     position: absolute;
     right: 15px;
     transition: all 0.3s;
-    transform: rotate(90deg); /* Start expanded by default */
 }
 
-.expanded-accordion .card-body {
-    display: block; /* Show content by default */
+/* In the visible accordion, we don't need to hide by default anymore */
+/* The card-body will be shown or hidden based on the visibility state */
+
+.visible-accordion-active .visible-accordion-icon {
+    transform: rotate(90deg);
 }
 
-.expanded-accordion .accordion-collapsed .card-body {
-    display: none;
-}
-
-.accordion-collapsed .accordion-icon {
-    transform: rotate(0deg);
-}
-
-.expanded-accordion .card-header {
+.custom-visible-accordion .card-header {
     cursor: pointer;
-    position: relative;
-    padding: 15px;
-    background-color: #f8f9fa;
-    border-bottom: 1px solid rgba(0,0,0,.125);
-}
-
-.expanded-accordion .card {
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: 4px;
-    margin-bottom: 5px;
-}
-
-.expanded-accordion .card-body {
-    padding: 15px;
 }
