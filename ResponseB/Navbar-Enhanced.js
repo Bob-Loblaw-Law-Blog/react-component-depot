@@ -3,11 +3,15 @@ import { useSelector } from "react-redux";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import routes from "routes";
 import { Scrollbars } from "react-custom-scrollbars";
-import useThemeSwitcher from "hooks/useThemeSwitcher";
+import useEnhancedThemeSwitcher from "hooks/useEnhancedThemeSwitcher"; // Our new theme switcher hook
 import ReactGA from "react-ga";
 
-export const Navbar = () => {
-    const ThemeSwitcher = useThemeSwitcher();
+export const EnhancedNavbar = () => {
+    // Use the new theme switcher component (options can be passed to customize)
+    const ThemeSwitcher = useEnhancedThemeSwitcher({
+        variant: 'dropdown', // or use 'buttons' for button-based switcher
+        className: 'cursor-pointer theme-switcher-active'
+    });
 
     const isNavbarVisible = useSelector((state) => state.layout.navbar);
 
