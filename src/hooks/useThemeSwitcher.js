@@ -46,7 +46,6 @@ function useThemeSwitcher() {
         <a
             className="cursor-pointer"
             onClick={() =>
-                // setMode(mode => (mode = ++mode))
                 setMode(mode => mode > 3 ? mode = 0 : ++mode)
             }
         >
