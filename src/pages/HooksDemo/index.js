@@ -12,7 +12,7 @@ import useGeoLocation from "hooks/useGeoLocation";
 const HooksDemo = () => {
     const [name, setName] = useState("");
     // Use the enhanced hook with custom modal
-    const [PromptWithModal, updateField, setPristine, savedValues] = useUnsavedChangesWarning();
+    const [Prompt, modal, updateField, setPristine, savedValues] = useUnsavedChangesWarning();
     const [elementRef, FullscreenIcon] = useFullscreenMode();
     const location = useGeoLocation();
 
@@ -85,11 +85,64 @@ const HooksDemo = () => {
                     </div>
                 </div>
             </div>
-            {/* This renders both the Prompt and the Modal */}
-            {PromptWithModal}
 
-            {/* Rest of the component remains the same */}
-            {/* ... */}
+            {/* This renders both the Prompt and the Modal */}
+            {Prompt}
+            {modal}
+
+            <div class="separator">Hook 2: Visiblity Toggler Hook</div>
+            <div className="row d-flex justify-content-center mt-3 mb-5 pb-5">
+                <div className="col-6">
+                    <div class="card">
+                        <div class="card-header text-left font-weight-bold d-flex">
+                            <div className="inline-block mr-auto pt-1">
+                                useVisiblityToggler Hook
+                            </div>
+                            <button
+                                className="btn btn-primary "
+                                onClick={toggleCardVisiblity}
+                            >
+                                Toggle Visiblity
+                            </button>
+                        </div>
+                        <div className="card-body">{ContactCardComponent}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="separator">Hook 3: User Geo Location Hook</div>
+
+            <div className="row d-flex justify-content-center mt-3 mb-5 pb-5">
+                <div className="col-6">
+                    <div className="card">
+                        <div className="card-header text-left font-weight-bold">
+                            <div className="inline-block mr-auto pt-1">
+                                useGeoLocation Hook
+                            </div>
+                        </div>
+                        <div className="card-body">
+                            {!location.loaded ? (
+                                <div className="alert alert-info">
+                                    Attempting to get your location...
+                                </div>
+                            ) : location.error ? (
+                                <div className="alert alert-danger">
+                                    <strong>Error: </strong> 
+                                    {location.error.message === "User denied Geolocation" 
+                                        ? "Location permission was denied. Please enable location access to use this feature."
+                                        : location.error.message}
+                                </div>
+                            ) : (
+                                <div className="alert alert-success">
+                                    <strong>Your coordinates:</strong><br/>
+                                    Latitude: {location.coordinates.lat}<br/>
+                                    Longitude: {location.coordinates.lng}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
     );
 };

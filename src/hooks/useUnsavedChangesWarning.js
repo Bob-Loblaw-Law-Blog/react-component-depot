@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import { Prompt, useHistory } from "react-router-dom";
-import CustomModal from "./CustomModal";
+import React, { useState, useEffect, useCallback, useRef} from "react";
+import { Prompt, useHistory, useNavigate } from "react-router-dom";
+import UnsavedChangesModal from "./UnsavedChangesModal";
 
 const STORAGE_KEY = "unsaved_form_data";
 
@@ -10,6 +10,7 @@ const useUnsavedChangesWarning = (
   const [isDirty, setDirty] = useState(false);
   const [formValues, setFormValues] = useState({});
   const [showModal, setShowModal] = useState(false);
+	const [clearPrompt, setClearPrompt] = useState(false)
   const history = useHistory();
   
   // Store the target location when navigation is attempted
@@ -42,6 +43,14 @@ const useUnsavedChangesWarning = (
     };
   }, [isDirty, message]);
 
+	// Handle Prompt blocking logic to be cleared by 'handleConfirmNavigation'
+	useEffect(() => {
+		if (clearPrompt) {
+			// Navigate to the previously blocked URL
+			history.push(pendingNavigation.current.pathname);
+		}
+	}, [clearPrompt, history, pendingNavigation])
+
   // Function to save the current form state
   const saveFormState = useCallback((values) => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(values));
@@ -57,13 +66,11 @@ const useUnsavedChangesWarning = (
   // Handle confirming navigation
   const handleConfirmNavigation = useCallback(() => {
     setShowModal(false);
-    
-    // We already have the form data saved with updateField
-    // Navigate to the pending location
-    if (pendingNavigation.current) {
-      history.push(pendingNavigation.current.pathname);
-      pendingNavigation.current = null;
-    }
+
+		// Set the properties that allow to navigate away
+		setDirty(false);
+		setClearPrompt(true);
+
   }, [history]);
 
   // Handle cancelling navigation
@@ -76,9 +83,6 @@ const useUnsavedChangesWarning = (
   const handlePrompt = useCallback((location) => {
     // Don't show the modal if form isn't dirty
     if (!isDirty) return true;
-
-    // Don't trigger for the same location
-    if (history.location.pathname === location.pathname) return true;
 
     // Store the location we're trying to navigate to
     pendingNavigation.current = location;
@@ -107,7 +111,7 @@ const useUnsavedChangesWarning = (
 
   // Create the modal component with our custom buttons
   const modal = (
-    <CustomModal
+    <UnsavedChangesModal
       isOpen={showModal}
       message={`${message}\n\nYour changes will be saved and restored when you return.`}
       onConfirm={handleConfirmNavigation}
@@ -120,12 +124,11 @@ const useUnsavedChangesWarning = (
   // Create the React Router prompt
   const routerPrompt = <Prompt when={isDirty} message={handlePrompt} />;
 
+
   // Return everything needed by components using this hook
   return [
-    <>
-      {routerPrompt}
-      {modal}
-    </>, 
+    routerPrompt,
+    modal,
     updateField,  // Function to update a field and mark as dirty
     setPristine,  // Function to mark form as pristine and clear saved state
     formValues    // The saved form values for restoration
