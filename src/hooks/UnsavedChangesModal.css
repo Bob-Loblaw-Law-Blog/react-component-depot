@@ -1,0 +1,91 @@
+/* Overlay that covers the screen */
+.unsaved-changes-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal container */
+.unsaved-changes-modal {
+  background: white;
+  border-radius: 4px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+/* Modal content area */
+.unsaved-changes-modal-content {
+  padding: 20px;
+}
+
+/* Modal message text */
+.unsaved-changes-modal-message {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Button container */
+.unsaved-changes-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 20px 20px;
+  gap: 10px;
+}
+
+/* Cancel button (like "Stay on Page") */
+.unsaved-changes-modal-cancel {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.unsaved-changes-modal-cancel:hover {
+  background: #e9ecef;
+}
+
+/* Confirm button (like "Leave Page") */
+.unsaved-changes-modal-confirm {
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.unsaved-changes-modal-confirm:hover {
+  background: #0069d9;
+}
+
+/* Modal responsiveness */
+@media (max-width: 480px) {
+  .unsaved-changes-modal {
+    width: 95%;
+  }
+  
+  .unsaved-changes-modal-actions {
+    justify-content: center; /* Stack buttons on small screens */
+  }
+  
+  .unsaved-changes-modal-cancel,
+  .unsaved-changes-modal-confirm {
+    flex: 1;
+  }
+}
