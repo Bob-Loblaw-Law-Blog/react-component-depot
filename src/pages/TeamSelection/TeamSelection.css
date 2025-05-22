@@ -1,0 +1,101 @@
+/* Enhanced drag-over effect */
+.drop-hover-effect {
+  background-color: #e3f2fd !important;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(81, 203, 238, 0.8);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(81, 203, 238, 1);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 0.4);
+  }
+}
+
+/* Recently moved card effects */
+.recently-moved {
+  position: relative;
+  animation: fadeIn 0.5s ease-in-out;
+  border-left: 4px solid #4caf50 !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.5;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Glow animation for recently moved player avatar */
+.glow-animation {
+  animation: glow 2s ease-in-out;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px #4caf50;
+  }
+  50% {
+    box-shadow: 0 0 20px #4caf50;
+  }
+  100% {
+    box-shadow: 0 0 5px #4caf50;
+  }
+}
+
+/* NEW badge for recently moved players */
+.moved-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #f44336;
+  color: white;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  animation: badgePulse 2s infinite;
+}
+
+@keyframes badgePulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Card lifting effect on hover */
+.list-group-item {
+  transition: all 0.2s ease;
+}
+
+.list-group-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Dragging state */
+.list-group-item[isDragging="true"] {
+  opacity: 0.5;
+}
