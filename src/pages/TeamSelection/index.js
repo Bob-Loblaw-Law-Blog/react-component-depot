@@ -3,11 +3,12 @@ import Header from "components/Header";
 import playersJSON from "resources/data/players.json";
 import { useDrag, useDrop } from "react-dnd";
 import ExternalInfo from "components/ExternalInfo";
-import './TeamSelection.css'; // Import custom CSS for enhanced visuals
+import "./team-selection-styles.css"; // Import custom styles
 
 const TeamSelection = () => {
   const [players, setPlayers] = useState(() => playersJSON);
   const [team, setTeam] = useState([]);
+  // Track recently moved cards by their IDs
   const [recentlyMoved, setRecentlyMoved] = useState([]);
   
   // Sort players alphabetically by name
@@ -21,6 +22,16 @@ const TeamSelection = () => {
     [...team].sort((a, b) => a.name.localeCompare(b.name)), 
     [team]
   );
+  
+  // Clear the recently moved cards after a timeout
+  useEffect(() => {
+    if (recentlyMoved.length > 0) {
+      const timer = setTimeout(() => {
+        setRecentlyMoved([]);
+      }, 1000); // 1 second animation
+      return () => clearTimeout(timer);
+    }
+  }, [recentlyMoved]);
 
   const [{ isOver }, addToTeamRef] = useDrop({
     accept: "player",
@@ -39,32 +50,24 @@ const TeamSelection = () => {
   const movePlayer = (item) => {
     console.log(item);
     if (item && item.type === "player") {
-      //Accepting player into the team
+      // Accepting player into the team
       const movedPlayer = players[item.index];
       setTeam((_team) => [..._team, movedPlayer]);
       setPlayers((_players) => _players.filter((_, idx) => idx !== item.index));
-      // Track this player as recently moved
+      // Mark this player as recently moved
       setRecentlyMoved([movedPlayer.id]);
-      // Clear the recently moved status after 3 seconds
-      setTimeout(() => {
-        setRecentlyMoved([]);
-      }, 3000);
     } else {
-      //Removing a player from team
+      // Removing a player from team
       const movedPlayer = team[item.index];
       setPlayers((_players) => [..._players, movedPlayer]);
       setTeam((_team) => _team.filter((_, idx) => idx !== item.index));
-      // Track this player as recently moved
+      // Mark this player as recently moved
       setRecentlyMoved([movedPlayer.id]);
-      // Clear the recently moved status after 3 seconds
-      setTimeout(() => {
-        setRecentlyMoved([]);
-      }, 3000);
     }
   };
 
-  const dragHoverTeamBG = isOver ? "drop-hover-effect" : "bg-light";
-  const dragHoverPlayerBG = isPlayerOver ? "drop-hover-effect" : "bg-light";
+  const dragHoverTeamBG = isOver ? "team-highlight" : "bg-light";
+  const dragHoverPlayerBG = isPlayerOver ? "drag-highlight" : "bg-light";
 
   return (
     <>
@@ -78,13 +81,14 @@ const TeamSelection = () => {
           <p>Demonstrating react-dnd by implementing team selection UI</p>
           <div className="row justify-content-md-center">
             <div className={`col-5 border m-2 ${dragHoverPlayerBG}`}>
-              <div className="bg-info row text-white">
+              <div className={`bg-info row text-white ${isPlayerOver ? 'pulse-header' : ''}`}>
                 <div className="col font-weight-bold">Available Players ({sortedPlayers.length})</div>
               </div>
               <ul className="list-group py-2 h-100" ref={removeFromTeamRef}>
                 {sortedPlayers.map((player, idx) => {
                   // Find the original index in the unsorted players array
                   const originalIndex = players.findIndex(p => p.id === player.id);
+                  const isRecent = recentlyMoved.includes(player.id);
                   return (
                     <Player
                       {...player}
@@ -92,20 +96,21 @@ const TeamSelection = () => {
                       index={originalIndex}
                       playerType="player"
                       onDropPlayer={movePlayer}
-                      isRecentlyMoved={recentlyMoved.includes(player.id)}
+                      isRecent={isRecent}
                     />
                   );
                 })}
               </ul>
             </div>
             <div className={`col-5 border m-2 ${dragHoverTeamBG}`}>
-              <div className="bg-success row text-white">
+              <div className={`bg-success row text-white ${isOver ? 'pulse-header' : ''}`}>
                 <div className="col font-weight-bold">THE A-TEAM ({sortedTeam.length})</div>
               </div>
               <ul className="list-group py-2 h-100" ref={addToTeamRef}>
                 {sortedTeam.map((player, idx) => {
                   // Find the original index in the unsorted team array
                   const originalIndex = team.findIndex(p => p.id === player.id);
+                  const isRecent = recentlyMoved.includes(player.id);
                   return (
                     <Player
                       {...player}
@@ -113,7 +118,7 @@ const TeamSelection = () => {
                       index={originalIndex}
                       playerType="team"
                       onDropPlayer={movePlayer}
-                      isRecentlyMoved={recentlyMoved.includes(player.id)}
+                      isRecent={isRecent}
                     />
                   );
                 })}
@@ -134,7 +139,7 @@ const Player = ({
   index,
   playerType,
   onDropPlayer,
-  isRecentlyMoved = false,
+  isRecent = false,
 }) => {
   const [{ isDragging }, dragRef] = useDrag({
     item: {
@@ -154,20 +159,18 @@ const Player = ({
   });
 
   return (
-    <li className={`list-group-item my-1 p-2 ${isRecentlyMoved ? 'recently-moved' : ''}`} ref={dragRef}>
-      <div className="card border-0">
-        <div className="row no-gutters">
+    <li className={`list-group-item my-1 p-2 ${isRecent ? 'card-moved' : ''}`} ref={dragRef}>
+      <div className={`card border-0 ${isRecent ? 'card-moved' : ''}`}>
+        <div className={`row no-gutters ${isRecent ? 'card-moved' : ''}`}>
           <div className="col-md-1">
-            <div className="position-relative">
-              <img
-                src={photo}
-                className={`img-thumbnail border-secondary rounded-circle ${isRecentlyMoved ? 'glow-animation' : ''}`}
-              />
-              {isRecentlyMoved && <span className="moved-badge">NEW</span>}
-            </div>
+            <img
+              alt=''
+              src={photo}
+              className="img-thumbnail border-secondary rounded-circle"
+            />
           </div>
-          <div className="col-md-9">
-            <div className="card-body py-1 px-2 text-left">
+          <div className={`col-md-9 ${isRecent ? 'card-moved' : ''}`}>
+            <div className={`card-body py-1 px-2 text-left `}>
               <h5 className="card-title d-inline">{name}</h5>
               <p className="card-text d-inline">, {nationality}</p>
             </div>
