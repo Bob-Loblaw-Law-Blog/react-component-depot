@@ -1,0 +1,52 @@
+/* Enhanced visual styles for Team Selection component */
+
+/* Column highlight effects */
+.drag-highlight {
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+  border: 2px none #007bff !important;
+  background-color: rgba(0, 123, 255, 0.1) !important;
+}
+
+.team-highlight {
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(40, 167, 69, 0.5);
+  border: 2px none #28a745 !important;
+  background-color: rgba(40, 167, 69, 0.1) !important;
+}
+
+/* Card movement effects */
+.card-moved {
+  animation: cardAdded 1s ease;
+}
+
+@keyframes cardAdded {
+  0% {
+    opacity: 0.5;
+    background-color: rgba(255, 193, 7, 0.2);
+  }
+  50% {
+    background-color: rgba(255, 193, 7, 0.2);
+  }
+  100% {
+    opacity: 1;
+    background-color: transparent;
+  }
+}
+
+/* Custom pulse effect for headers */
+.pulse-header {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
